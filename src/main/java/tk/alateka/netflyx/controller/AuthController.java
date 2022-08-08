@@ -23,14 +23,19 @@ public class AuthController {
     
     @CrossOrigin
     @PostMapping(
-        path = "api/1/login"
+        path = "api/1/login",
+        produces = "application/json",
+        consumes = "application/json"
     )
     public String login(@RequestBody User user) {
         String token;
         List<User> users = userRepo.findAll();
+
         for (User dbUser : users) {
+
             if ( dbUser.getPassword() == user.getPassword() 
                 && dbUser.getEmail() == user.getEmail()) {
+                    
                     token = jwtUtils.create(Integer.toString(dbUser.getId()), dbUser.getEmail());
                     return token;
             }

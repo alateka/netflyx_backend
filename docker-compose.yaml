@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    ports:
+      - 127.0.0.1:54321:5432
+    #restart: always
+    environment:
+      POSTGRES_PASSWORD: prueba
+      POSTGRES_DB: prueba
+    volumes:
+      - postgresql:/var/lib/postgresql
+volumes:
+  postgresql:
