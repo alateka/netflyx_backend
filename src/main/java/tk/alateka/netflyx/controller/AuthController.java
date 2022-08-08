@@ -33,11 +33,11 @@ public class AuthController {
 
         for (User dbUser : users) {
 
-            if ( dbUser.getPassword() == user.getPassword() 
-                && dbUser.getEmail() == user.getEmail()) {
-                    
-                    token = jwtUtils.create(Integer.toString(dbUser.getId()), dbUser.getEmail());
-                    return token;
+            if ( dbUser.getEmail().equals(user.getEmail())
+                && dbUser.getPassword().equals(user.getPassword())
+            ) {
+                token = jwtUtils.create(Integer.toString(dbUser.getId()), dbUser.getEmail());
+                return token;
             }
         }
         return "Error";
