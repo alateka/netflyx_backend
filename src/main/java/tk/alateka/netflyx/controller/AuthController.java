@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import tk.alateka.netflyx.model.User;
@@ -41,5 +43,27 @@ public class AuthController {
             }
         }
         return "Error";
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "api/1/check")
+    public String checkLogin(@RequestHeader(value = "Authorization") String token) {
+
+        try {
+            String userEmail = jwtUtils.getValue(token);
+            String userID = jwtUtils.getKey(token);
+
+            List<User> users = userRepo.findAll();
+
+            for (User dbUser : users) {
+                
+                if ( dbUser.getId() == Integer.parseInt(userID) 
+                    && dbUser.getEmail().equals(userEmail)) 
+                        return "OK";
+            }
+            return "Error";
+        } catch (Exception e) {
+            return "Error";
+        }
     }
 }
