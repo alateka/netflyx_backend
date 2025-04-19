@@ -1,0 +1,17 @@
+meta {
+  name: CheckLogin
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://127.0.0.1/api/1/check
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: {{API-Key}}
+  placement: header
+}

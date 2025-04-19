@@ -1,0 +1,21 @@
+meta {
+  name: GetMovie
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://127.0.0.1/api/1/movie?id=3
+  body: none
+  auth: apikey
+}
+
+params:query {
+  id: 3
+}
+
+auth:apikey {
+  key: Authorization
+  value: {{API-Key}}
+  placement: header
+}
